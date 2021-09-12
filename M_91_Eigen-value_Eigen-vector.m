@@ -11,6 +11,7 @@ clear
 [filename pathname] = uigetfile({'*.jpg';'*.png';'*.bmp';'*.tiff';'*.gif'}, 'File Selector');
 pathf = strcat(pathname, filename);
 f = imread(pathf);
+f = im2bw(f);
 f2 = f;
 a = (f(:,:,1));
 
