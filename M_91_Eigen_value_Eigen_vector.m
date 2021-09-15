@@ -1,7 +1,5 @@
 % M_91_Eigen-value_Eigen-vector.m
 % 1.ใช้คําสั่ง Matlab เพื่อคํานวณ Moment of Inertia Covariance Matrix ของภาพไบนารี
-
-
 % หา Eigen-value และ Eigen-vector ทําการหมุนภาพ 30 องศา 
 % และย่อภาพลงครึ่งหนึ่ง แล้ว คํานวณ Moment of Inertia Covariance Matrix 
 % ของภาพไบนารีที่ถูกแปลงไป เปรียบเทียบ Eigen-value และ Eigen-vector ที่คํานวณได้ทั้งสองครั้ง
@@ -12,11 +10,10 @@ clear
 pathf = strcat(pathname, filename);
 f = imread(pathf);
 f = im2bw(f);
-f2 = f;
+
 a = (f(:,:,1));
 
 % ลบค่าเฉลี่ย
-
 aa = im2double(a);
 b = matrix2rowvector(aa);
 mn = mean(b);
@@ -59,7 +56,7 @@ eigVector2 = eig(vpa(fdata2*fdata2'));
 % returns numeric eigenvalues using variable-precision arithmetic.
 
 
-subplot(3,1,1), imagesc(f2) , title("ภาพต้นฉบับ");
+subplot(3,1,1), imagesc(f) , title("ภาพต้นฉบับ");
 subplot(3,1,2), imagesc(rotateImage), title("หมุน 30 องศา");
 subplot(3,1,3), imagesc(rotateAndResize), title("ลดขนาดลงครึ่งหนึ่ง");
 
@@ -72,12 +69,5 @@ fprintf("\nค่า Eigen-value หลังจากหมุน = " + eigValu
 fprintf("\nค่า Eigen-vector หลังจากหมุน")
 sym(eigVector2)
 
-function [out] = matrix2rowvector(in)
-	m=size(in);
-	row=m(1);
-	col=m(2);
-	for i=1:row
-		out((i-1)*col+1:i*col)=in(i,:);
-	end
-end
+
 
