@@ -45,25 +45,12 @@ h5_1 = ( v30 - 3*(v12) ) * (v30 + v12) * ( ( ( v30 + v12 )^2 ) - 3*(v21 + v03)^2
 h6_1 = (v20 - v02) * (( (v30 + v12)^2 ) - ( (v21 + v03)^2 ) ) + 4*(v11) * (v30 + v12) * (v21 + v03);
 h7_1 = (3*(v21) - v03) * (v30 + v12) *  ( (v30 + v12)^2 - 3 *( (v21 + v03)^2) ) - (v30 - 3*(v12) ) * (v21 + v03) * (v21 + v03) * ( 3* (v30 + v12)^2 - (v21 + v03)^2 );
 
-
-% fprintf("\n h1_1 Rotate = " + h1_1);
-% fprintf("\n h2_1 Rotate = " + h2_1);
-% fprintf("\n h3_1 Rotate = " + h3_1);
-% fprintf("\n h4_1 Rotate = " + h4_1);
-% fprintf("\n h5_1 Rotate = " + h5_1);
-% fprintf("\n h6_1 Rotate = " + h6_1);
-% fprintf("\n h7_1 Rotate = " + h7_1);
-
 %  --------------------------------------------------- Hu Moment Invariant h1-h7  ---------------------------- %
-
-
 
 % ย่อภาพลงครึ่งหนึ่ง
 [row, column] = size(rotateImage);
 rotateAndResize = imresize(rotateImage, [(row/2) (column/2)]);
 subplot(3,1,3), imagesc(rotateAndResize), title("ลดขนาดลงครึ่งหนึ่ง");
-
-
 %  --------------------------------------------------- Hu Moment Invariant h1-h7  ---------------------------- %
 
 % calculate Hu momnet
@@ -83,18 +70,8 @@ h5_2 = ( v30 - 3*(v12) ) * (v30 + v12) * ( ( ( v30 + v12 )^2 ) - 3*(v21 + v03)^2
 h6_2 = (v20 - v02) * (( (v30 + v12)^2 ) - ( (v21 + v03)^2 ) ) + 4*(v11) * (v30 + v12) * (v21 + v03);
 h7_2 = (3*(v21) - v03) * (v30 + v12) *  ( (v30 + v12)^2 - 3 *( (v21 + v03)^2) ) - (v30 - 3*(v12) ) * (v21 + v03) * (v21 + v03) * ( 3* (v30 + v12)^2 - (v21 + v03)^2 );
 
-% fprintf("\n h1_2 After = " + h1_2);
-% fprintf("\n h2_2 After = " + h2_2);
-% fprintf("\n h3_2 After = " + h3_2);
-% fprintf("\n h4_2 After = " + h4_2);
-% fprintf("\n h5_2 After = " + h5_2);
-% fprintf("\n h6_2 After = " + h6_2);
-% fprintf("\n h7_2 After = " + h7_2);
 
 %  --------------------------------------------------- Hu Moment Invariant h1-h7  ---------------------------- %
-
-
-
 % Output ------------------
 % --------------- Rotate ---------------     Imresize ----------- % 
 fprintf("\n h1_1 Rotate = " + h1_1 + "\n h1_2 Resize = " + h1_2 + "\n" );
@@ -105,6 +82,25 @@ fprintf("\n h5_1 Rotate = " + h5_1 + "\n h5_2 Resize = " + h5_2 + "\n" );
 fprintf("\n h6_1 Rotate = " + h6_1 + "\n h6_2 Resize = " + h6_2 + "\n" );
 fprintf("\n h7_1 Rotate = " + h7_1 + "\n h7_2 Resize = " + h7_2 + "\n" );
 
+
+
+
+
+
+
+
+
+
+% fprintf("\n h1_1 Rotate = " + h1_1);
+% fprintf("\n h2_1 Rotate = " + h2_1);
+% fprintf("\n h3_1 Rotate = " + h3_1);
+% fprintf("\n h4_1 Rotate = " + h4_1);
+% fprintf("\n h5_1 Rotate = " + h5_1);
+% fprintf("\n h6_1 Rotate = " + h6_1);
+% fprintf("\n h7_1 Rotate = " + h7_1);
+
+
+
 % fprintf("\n h1_2 After = " + h1_2);
 % fprintf("\n h2_2 After = " + h2_2);
 % fprintf("\n h3_2 After = " + h3_2);
@@ -112,38 +108,3 @@ fprintf("\n h7_1 Rotate = " + h7_1 + "\n h7_2 Resize = " + h7_2 + "\n" );
 % fprintf("\n h5_2 After = " + h5_2);
 % fprintf("\n h6_2 After = " + h6_2);
 % fprintf("\n h7_2 After = " + h7_2);
-
-
-% Hu Function
-function [vmn] = hu_moment(f,m,n)
-	I = im2double(f);
-	m00 = NormalizeMoment(I,0,0);
-	umn = UnNormalizeMoment(I,m,n);
-	m00 = (m00^(m+n+2));
-	m00 = sqrt(m00);
-	
-	vmn=umn/m00;
-	
-	function [mn] = UnNormalizeMoment(f, m, n)
-		mn=0;
-		for x=1:size(f,1)
-			for y=1:size(f,2)
-				mn = mn+((x^m)*(y^n)*f(x,y));
-			end
-		end
-	end
-	
-	function [mn] = NormalizeMoment(f, m, n)
-		mn=0;
-		j=size(f,1); k=size(f,2);
-		for x=1:size(f,1)
-			for y=1:size(f,2)
-				mn = mn+((x^m)*(y^n)*f(x,y));
-			end
-		end
-	mn=mn/(j^m*k^n);
-	end
-end
-    
-
-
