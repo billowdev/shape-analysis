@@ -140,38 +140,49 @@ end
 
 %  ------------------------------------------------------ %
 % ระบุใบหน้าที่ไม่รู้จัก (Identify unknown faces)
-a = imread('test_faceData/unknow1.jpg');
+
+[filename pathname] = uigetfile({'*.jpg';'*.png';'*.bmp';'*.tiff';'*.gif'}, 'File Selector');
+pathf = strcat(pathname, filename);
+a = imread(pathf);
+
 a = a(:,:,1);
 a = im2double(a);
 aa = matrix2rowvector(a);
-pr=efdata*aa';          
+pr = efdata*aa';          
 
 for ii=1:50
     er(ii) = sum(abs(omeca(:,ii)-pr));
 end
 
-[Y, I] = min(er)
+[Y, I] = min(er);
 f4 = figure(4), subplot(2,1,1)
 set(f4, 'Position', [700 50 400 650]);
 imagesc(a);
 colormap(gray)
 
 axis off
-title('Anonumous');
+
 if I<51
-    c00=sprintf('face0%d.jpg', I-1);
+    c00=sprintf('train_faceData/real_0000%d.jpg', I-1);
+    
 else
-    c00=sprintf('face0%d.jpg', I-1);
+    c00=sprintf('train_faceData/real_0000%d.jpg', I-1); 
 end
 
 %  ------------------------------------------------------ %
 % ระบุใบหน้าที่รู้จัก (Identify known faces)
-% a = imread(c00);
-a = imread('test_faceData/knowface.jpg');
-aa = a(:,:,1);
-figure(4), subplot(2,1,2)
+try
+    a = imread(c00);
+    aa = a(:,:,1);
+    figure(4), subplot(2,1,2)
+    imagesc(a);
+    colormap(gray)
+    title('Person Identified');
+    axis off
+catch
+    imagesc(a);
+    colormap(gray)
+    title('Person Anonumous');
+    axis off
+end
 
-imagesc(a);
-colormap(gray)
-title('Person Identified');
-axis off
